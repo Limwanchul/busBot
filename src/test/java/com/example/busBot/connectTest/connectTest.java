@@ -87,11 +87,13 @@ public class ConnectTest {
 			JSONObject jsonObject_Response = (JSONObject) XML.toJSONObject(sb.toString()).get("response");
 			JSONObject jsonObject_Body = (JSONObject) jsonObject_Response.get("msgBody");
 			String jsonObjectBusRouteList = jsonObject_Body.getJSONArray("busRouteList").toString();
+			System.out.println(jsonObjectBusRouteList);
 
 			// 버스 노선 번호 목록 vo 객체에 set
 			Gson gson = new Gson();
 			BusRoute[] busRouteArray = gson.fromJson(jsonObjectBusRouteList, BusRoute[].class);
 			List<BusRoute> busRouteList = Arrays.asList(busRouteArray);
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
