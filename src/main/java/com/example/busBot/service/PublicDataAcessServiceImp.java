@@ -97,7 +97,7 @@ public class PublicDataAcessServiceImp implements PublicDataAcessService{
 			urlBuilder.append("&" + URLEncoder.encode("serviceKey","UTF-8") + "=" + URLEncoder.encode(api.getApiKey(), "UTF-8")); /*인증키(공공데이포털 발급)*/
 			urlBuilder.append("&" + URLEncoder.encode("stationId","UTF-8") + "=" + URLEncoder.encode(stationId, "UTF-8")); /*정류소ID*/
 
-			String busArrivalListCon = getBusRouteListCon(urlBuilder, 2);
+			String busArrivalListCon = getBusRouteListCon(urlBuilder, 3);
 			// 버스 노선 번호 목록 vo 객체에 set
 			Gson gson = new Gson();
 			BusArrival[] busArrivalArray = gson.fromJson(busArrivalListCon, BusArrival[].class);
@@ -105,7 +105,7 @@ public class PublicDataAcessServiceImp implements PublicDataAcessService{
 
 			// 버스 정류장에 대한 필터링 regionName
 			for (BusArrival busarrival : busArrivalList) {
-
+				busRouteDoFilterList.add(busarrival);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -152,7 +152,7 @@ public class PublicDataAcessServiceImp implements PublicDataAcessService{
 			} else if (callFlag == 2) {/*경유정류소목록조회*/
 				jsonObjectBusRouteList = jsonObject_Body.getJSONArray("busRouteStationList").toString();
 			} else if (callFlag == 3) {
-				
+				jsonObjectBusRouteList = jsonObject_Body.getJSONArray("busArrivalList").toString();
 			}
 			//System.out.println(jsonObjectBusRouteList);
 

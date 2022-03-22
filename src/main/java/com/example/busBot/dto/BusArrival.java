@@ -76,6 +76,8 @@ public class BusArrival {
 	 */
 	private String flag = "";
 
+	private String[] text;
+
 	public String getStationId() {
 
 		return stationId;
@@ -216,4 +218,13 @@ public class BusArrival {
 		this.flag = flag;
 	}
 
+	public String[] getText() {
+
+		return text;
+	}
+
+	public void setText(String[] text) {
+
+		this.text = text;
+	}
 }
