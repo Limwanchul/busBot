@@ -2,10 +2,13 @@ package com.example.busBot.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.example.busBot.dto.BusArrival;
 import com.example.busBot.dto.BusRoute;
 import com.example.busBot.dto.BusStation;
 
+@Service
 public interface PublicDataAcessService {
 
 	/**
