@@ -57,15 +57,23 @@ public class PublicDataAcessController {
 			// 노선번호목록조회 (버스 번호, 지역)
 			busRouteList = pDataAcess.getBusRouteList(busNum, busReg);
 
-			// 경유정류소목록조회
 			if (CollectionUtils.isEmpty(busRouteList)) {
 				resultMap.put("result", false);
 				resultMap.put("msg", busReg + " 지역에" + busNum + "번 버스가 없습니다.");
 				
 				return resultMap;
 			}
+
+			// 경유정류소목록조회
 			busStationRouteList = pDataAcess.getBusRouteStationList(busRouteList.get(0).getRouteId(), busStn);
 
+			if (CollectionUtils.isEmpty(busStationRouteList)) {
+				resultMap.put("result", false);
+				resultMap.put("msg", busNum + "(" + busReg + ")" + "번 버스가 " + busStn + " 정류소를 지나가지 않습니다.");
+				
+				return resultMap;
+			}
+			
 			busArrivalList = pDataAcess.getBusArrivalList(busStationRouteList.get(0).getStationId());
 			ObjectMapper mapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
 			busRouteStationListJson = mapper.writeValueAsString(busArrivalList);
