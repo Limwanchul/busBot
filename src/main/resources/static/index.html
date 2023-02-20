@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+</head>
+<body>
+	<input type="text" id="busNum" placeholder="버스 번호">
+	<input type="text" id="busReg" placeholder="조회 지역">
+	<input type="text" id="busStn" placeholder="정류장 이름">
+	<button id="apply">확인</button>
+</body>
+<script type="text/javascript">
+	$(function() {
+		$('#apply').click(function() {
+			let busNum = $('#busNum').val(); // 버스 번호
+			let busReg = $('#busReg').val(); // 조회 지역
+			let busStn = $('#busStn').val(); // 정류장 이름
+			
+			$.ajax({
+			    type : 'GET',
+			    url : '/busArrival',
+			    data : {
+			    	'busNum' : busNum,
+			    	'busReg' : busReg,
+			    	'busStn' : busStn
+			    	},
+			    success : function(result) {
+			    	if (result.result === false) {
+			    		alert(result.msg);
+			    		return;
+			    	}
+			    }
+			})
+		});
+	});
+</script>
+</html>

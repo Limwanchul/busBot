@@ -44,7 +44,8 @@ public class PublicDataAcessServiceImp implements PublicDataAcessService{
 			List<BusRoute>busRouteList = Arrays.asList(busRouteArray);
 			// 지역에 대한 필터링 regionName
 			for (BusRoute busRoute : busRouteList) {
-				if (busRoute.getRegionName().indexOf(busRegion) > -1 && "10".equals(busRoute.getRouteName())) {
+				if (busRoute.getRegionName().indexOf(busRegion) > -1 && busNumber.equals(busRoute.getRouteName())) {
+//				if (busNumber.equals(busRoute.getRouteName())) {
 					busRouteDoFilterList.add(busRoute);
 				}
 			}
