@@ -21,8 +21,8 @@ public class BusBotApplication {
 		try {
 			ApplicationContext context = SpringApplication.run(BusBotApplication.class, args);
 			TelegramApiKey telegramApiKeyBean = context.getBean(TelegramApiKey.class);
-
 	        String telegramApiKey = telegramApiKeyBean.getTelegramApiKey();
+	        
 			TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
 			botsApi.registerBot(new TelegramMessage(telegramApiKey));
 		} catch (Exception e) {
