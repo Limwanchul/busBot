@@ -1,15 +1,15 @@
-package com.example.busBot.service;
+package com.example.busBot.busSearch.service;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.example.busBot.dto.BusArrival;
-import com.example.busBot.dto.BusRoute;
-import com.example.busBot.dto.BusStation;
+import com.example.busBot.busSearch.dto.BusArrival;
+import com.example.busBot.busSearch.dto.BusRoute;
+import com.example.busBot.busSearch.dto.BusStation;
 
 @Service
-public interface PublicDataAcessService {
+public interface BusSearchService {
 
 	/**
 	 * 버스 노선 조회>노선번호목록조회

@@ -1,4 +1,4 @@
-package com.example.busBot.service;
+package com.example.busBot.busSearch.service;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -11,19 +11,21 @@ import java.util.List;
 
 import org.json.JSONObject;
 import org.json.XML;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
-import com.example.busBot.dto.ApiConnect;
-import com.example.busBot.dto.BusArrival;
-import com.example.busBot.dto.BusRoute;
-import com.example.busBot.dto.BusStation;
+import com.example.busBot.busSearch.dto.ApiConnect;
+import com.example.busBot.busSearch.dto.BusArrival;
+import com.example.busBot.busSearch.dto.BusRoute;
+import com.example.busBot.busSearch.dto.BusStation;
 import com.google.gson.Gson;
 
-@Configuration
-public class PublicDataAcessServiceImp implements PublicDataAcessService{
+import lombok.RequiredArgsConstructor;
 
-	@Autowired ApiConnect api;
+@Configuration
+@RequiredArgsConstructor
+public class BusSearchServiceImp implements BusSearchService{
+
+	private final ApiConnect api;
 
 	@Override
 	public List<BusRoute> getBusRouteList(String busNumber, String busRegion) {

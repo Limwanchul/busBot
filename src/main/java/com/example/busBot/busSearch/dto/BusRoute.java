@@ -1,4 +1,4 @@
-package com.example.busBot.dto;
+package com.example.busBot.busSearch.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

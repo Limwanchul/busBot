@@ -1,4 +1,4 @@
-package com.example.busBot.controller;
+package com.example.busBot.busSearch.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,23 +10,25 @@ import javax.websocket.server.PathParam;
 import com.google.gson.Gson;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.busBot.dto.BusArrival;
-import com.example.busBot.dto.BusRoute;
-import com.example.busBot.dto.BusStation;
-import com.example.busBot.service.PublicDataAcessServiceImp;
+import com.example.busBot.busSearch.dto.BusArrival;
+import com.example.busBot.busSearch.dto.BusRoute;
+import com.example.busBot.busSearch.dto.BusStation;
+import com.example.busBot.busSearch.service.BusSearchServiceImp;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 @RestController
 @RequiredArgsConstructor
-public class PublicDataAcessController {
+@Log4j2
+public class BusSearchController {
 
-	private final PublicDataAcessServiceImp pDataAcess;
+	private final BusSearchServiceImp pDataAcess;
 
 	/*
 	 * 공공데이터포털 APIKEY
@@ -81,19 +83,11 @@ public class PublicDataAcessController {
 			BusArrival[] busArrivalArray = gson.fromJson(busRouteStationListJson, BusArrival[].class);
 			busArrivalList = Arrays.asList(busArrivalArray);
 
-//			text = new String[busArrivalList.size()];
-//			int count = 0;
-//			for (int i = 0; i < busArrivalList.size(); i++) {
-//				count += 1;
-//				System.out.println("(" + count + ") " + "첫번째 도착: " + busArrivalList.get(i).getPredictTime1());
-//				System.out.println("(" + count + ") " + "두번째 도착: " + busArrivalList.get(i).getPredictTime2());
-//				text[i] = "(" + count + ") " + "첫번째 도착: " + busArrivalList.get(i).getPredictTime1()  +
-//						"\n" + "(" + count + ")" + "두번째 도착: " + busArrivalList.get(i).getPredictTime2();
-//			}
-
-
+			resultMap.put("result", true);
+			resultMap.put("busInfo", busArrivalList);
+			
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e);
 		}
 		return resultMap;
 

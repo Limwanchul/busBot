@@ -27,6 +27,11 @@ dependencies {
 	
 	testCompileOnly 'org.projectlombok:lombok:1.18.26'
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.26'
+	
+	implementation 'org.telegram:telegrambots:6.5.0'
+	
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	implementation 'org.projectreactor:reactor-spring:1.0.1.RELEASE'
 }
 
 test {
