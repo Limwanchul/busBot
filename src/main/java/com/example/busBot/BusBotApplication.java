@@ -20,25 +20,32 @@ public class BusBotApplication {
 		
 		try {
 			ApplicationContext context = SpringApplication.run(BusBotApplication.class, args);
-			TelegramApiKey telegramApiKeyBean = context.getBean(TelegramApiKey.class);
-	        String telegramApiKey = telegramApiKeyBean.getTelegramApiKey();
+			Init initBean = context.getBean(Init.class);
+
+			String telegramApiKey = initBean.getTelegramApiKey();
+			String botId = initBean.getBotId();
 	        
 			TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
-			botsApi.registerBot(new TelegramMessage(telegramApiKey));
+			botsApi.registerBot(new TelegramMessage(telegramApiKey, botId));
 		} catch (Exception e) {
 			log.error(e);
 		}
 	}
 
 	@Component
-    class TelegramApiKey {
+    class Init {
 
 		@Value("${telegram.apiKey}")
 	    private String telegramApiKey;
+
+		@Value("${telegram.botId}")
+		private String botId;
 	
 	    public String getTelegramApiKey() {
 	        return telegramApiKey;
 	    }
+
+		public String getBotId() { return botId; }
     }
 	
 }

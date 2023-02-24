@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.json.XML;
 import org.springframework.context.annotation.Configuration;
@@ -44,6 +45,12 @@ public class BusSearchServiceImp implements BusSearchService{
 			Gson gson = new Gson();
 			BusRoute[] busRouteArray = gson.fromJson(busRouteListCon, BusRoute[].class);
 			List<BusRoute>busRouteList = Arrays.asList(busRouteArray);
+
+			// 텔레그램에서 조회 시 버스번호만 넘겨서 지역 필터링 하지 않음
+			if (StringUtils.isEmpty(busRegion)) {
+				return busRouteList;
+			}
+
 			// 지역에 대한 필터링 regionName
 			for (BusRoute busRoute : busRouteList) {
 				if (busRoute.getRegionName().indexOf(busRegion) > -1 && busNumber.equals(busRoute.getRouteName())) {
@@ -75,13 +82,17 @@ public class BusSearchServiceImp implements BusSearchService{
 			BusStation[] busRouteStationArray = gson.fromJson(busRouteStationListCon, BusStation[].class);
 			List<BusStation>busRouteStationList = Arrays.asList(busRouteStationArray);
 
+			// 텔레그램 버튼을 통하여 조회
+			if (StringUtils.isEmpty(busStationName)) {
+				return busRouteStationList;
+			}
+
 			// 버스 정류장에 대한 필터링 StationName
 			for (BusStation busRouteStation : busRouteStationList) {
 				if (busRouteStation.getStationName().indexOf(busStationName) > -1) {
 					busRouteStationDoFilterList.add(busRouteStation);
 				}
 			}
-			System.out.println();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
